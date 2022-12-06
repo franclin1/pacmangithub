@@ -1,0 +1,41 @@
+variables: 
+  crHostname: "https://harbor.skyered-devops.de/"
+  crName: "pacman"
+  imageRepository: "application1"
+  vmImageName: "ubuntu-latest"
+  imageName: "pacman_application"
+  tag: "latest"
+  dockerfilePath: "**/Dockerfile"
+
+trigger:
+- main
+
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build job
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - Step: Build Image
+      - task: Docker@2
+        displayName: Build an image 
+        inputs:
+          command: build
+          repository: $(imageRepository)
+          dockerfile: $(dockerfilePath)
+          containerRegistry: $(crHostname)
+          tags:
+            $(tag)
+
+    - Step: Push Image to Harbor
+      - task: Docker@2
+        displayName: Push Image to Harbor
+        inputs:
+          command: Push
+          repository: $(imageRepository)
+          dockerfile: $(dockerfilePath)
+          containerRegistry: $(dockerRegistryServiceConnection)
+          tags: |
+            $(tag)
