@@ -10,7 +10,7 @@ variables:
 trigger:
 - main
 
-- stage: Build
+- stage:
   displayName: Build and push stage
   jobs:  
   - job: Build
