@@ -24,7 +24,7 @@ stages:
       displayName: Build an image
       inputs:
         containerRegistry: 'harbor_registry'
-        repository: 'pacman1'
+        repository: 'pacman/app'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
         tags: '$(tag)'
