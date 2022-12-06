@@ -1,5 +1,5 @@
 variables: 
-  crHostname: "https://harbor.skyered-devops.de/"
+  crHostname: "https://harbor.skyered-devops.de/harbor/projects/8/repositories"
   crName: "pacman"
   imageRepository: "application1"
   vmImageName: "ubuntu-latest"
