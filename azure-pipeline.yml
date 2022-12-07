@@ -29,14 +29,14 @@ stages:
       vmImage: $(vmImageName)
     steps:
       - bash: |
-        # Building Docker Image
-        docker build -t test .
-        # Logging into Registry
-        docker login --username $(username) --password $(password) $(registry)
-        # Tagging Image
-        docker tag test harbor.skyered-devops.de/pacman/test
-        # Pushing Image to Registry
-        docker push harbor.skyered-devops.de/pacman/test
+          # Building Docker Image
+          docker build -t test .
+          # Logging into Registry
+           docker login --username $(username) --password $(password) $(registry)
+          # Tagging Image
+          docker tag test harbor.skyered-devops.de/pacman/test
+          # Pushing Image to Registry
+          docker push harbor.skyered-devops.de/pacman/test
 
 
    
