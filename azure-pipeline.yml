@@ -1,11 +1,9 @@
 variables: 
-  crHostname: "https://harbor.skyered-devops.de/harbor/projects/8/repositories"
-  crName: "pacman"
   imageRepository: "application1"
   vmImageName: "ubuntu-latest"
-  imageName: "pacman_application"
-  tag: "latest"
+  containerRegistry: "harbor_registry"
   dockerfilePath: "**/Dockerfile"
+  tag: '$(Build.BuildId)'
 
 trigger:
 - main
@@ -24,6 +22,6 @@ stages:
       inputs:
         containerRegistry: '$(crHostname)'
         repository: '$(imageRepository)'
-        command: 'build'
-        Dockerfile: '**/Dockerfile'
+        command: 'buildAndPush'
+        Dockerfile: "(dockerfilePath)"
         tags: '$(tag)'
