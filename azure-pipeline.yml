@@ -1,8 +1,6 @@
 variables: 
 - group: Harbor_Creds
 
-
-
 trigger:
 - main
 
@@ -18,13 +16,13 @@ stages:
       - bash: |
           # Building Docker Image
           echo $(repository)
-          docker build -t test .
+          docker build -t $(imagename) .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
           # Tagging Image
-          docker tag test harbor.skyered-devops.de/pacman/test
+          docker tag $(imagename) $(registry)/(repository)
           # Pushing Image to Registry
-          docker push harbor.skyered-devops.de/pacman/test
+          docker push $(registry)/(repository)
 
 
    
