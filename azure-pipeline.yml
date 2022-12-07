@@ -8,10 +8,7 @@ variables:
   value: $[variables.registry]
 - name: imageRepository
   value: $[variables.repository]
-  vmImageName: "ubuntu-latest"
-  containerRegistry: "harbor_registry"
-  dockerfilePath: "**/Dockerfile"
-  tag: '$(Build.BuildId)'
+
 
 trigger:
 - main
