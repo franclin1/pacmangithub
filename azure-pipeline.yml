@@ -20,7 +20,7 @@ stages:
     - task: Docker@2
       displayName: Build an Docker Image
       inputs:
-        containerRegistry: '$(crHostname)'
+        containerRegistry: '$(containerRegistry)'
         repository: '$(imageRepository)'
         command: 'buildAndPush'
         Dockerfile: "(dockerfilePath)"
