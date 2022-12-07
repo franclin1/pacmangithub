@@ -1,5 +1,13 @@
 variables: 
-  imageRepository: "pacman/app"
+- group: Harbor_Creds
+- name: username
+  value: $[variables.username]
+- name: password
+  value: $[variables.password]
+- name: registry
+  value: $[variables.registry]
+- name: imageRepository
+  value: $[variables.repository]
   vmImageName: "ubuntu-latest"
   containerRegistry: "harbor_registry"
   dockerfilePath: "**/Dockerfile"
@@ -8,20 +16,27 @@ variables:
 trigger:
 - main
 
+resources: 
+  - repo: self
+
 stages:
 - stage:
-  displayName: Build Image
+  displayName: Build Image 
   jobs:  
   - job: Build
     displayName: Build job
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      displayName: Build an Docker Image
-      inputs:
-        containerRegistry: '$(containerRegistry)'
-        repository: '$(imageRepository)'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+      - bash: |
+        # Building Docker Image
+        docker build -t test .
+        # Logging into Registry
+        docker login --username $(username) --password $(password) $(registry)
+        # Tagging Image
+        docker tag test harbor.skyered-devops.de/pacman/test
+        # Pushing Image to Registry
+        docker push harbor.skyered-devops.de/pacman/test
+
+
+   
