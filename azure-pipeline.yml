@@ -1,5 +1,5 @@
 variables: 
-  imageRepository: "application1"
+  imageRepository: "pacman/app"
   vmImageName: "ubuntu-latest"
   containerRegistry: "harbor_registry"
   dockerfilePath: "**/Dockerfile"
