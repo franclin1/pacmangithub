@@ -23,5 +23,5 @@ stages:
         containerRegistry: '$(containerRegistry)'
         repository: '$(imageRepository)'
         command: 'buildAndPush'
-        Dockerfile: "(dockerfilePath)"
+        Dockerfile: '(dockerfilePath)'
         tags: '$(tag)'
