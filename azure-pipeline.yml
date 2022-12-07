@@ -24,6 +24,7 @@ stages:
     steps:
       - bash: |
           # Building Docker Image
+          echo $(imageRepository)
           docker build -t test .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
