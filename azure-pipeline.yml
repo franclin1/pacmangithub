@@ -21,9 +21,6 @@ stages:
   displayName: Build Image 
   jobs:  
   - job: Build
-    displayName: Build job
-    pool:
-      vmImage: $(vmImageName)
     steps:
       - bash: |
           # Building Docker Image
