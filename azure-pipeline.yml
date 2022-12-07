@@ -6,7 +6,7 @@ variables:
   value: $[variables.password]
 - name: registry
   value: $[variables.registry]
-- name: imageRepository
+- name: repository
   value: $[variables.repository]
 
 
@@ -24,7 +24,7 @@ stages:
     steps:
       - bash: |
           # Building Docker Image
-          echo $(imageRepository)
+          echo $(repository)
           docker build -t test .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
