@@ -1,13 +1,13 @@
 variables: 
 - group: Harbor_Creds
 - name: username
-  value: $[variables.username]
+  value: $[username]
 - name: password
-  value: $[variables.password]
+  value: $[password]
 - name: registry
-  value: $[variables.registry]
+  value: $[registry]
 - name: repository
-  value: $[variables.repository]
+  value: $[repository]
 
 
 trigger:
