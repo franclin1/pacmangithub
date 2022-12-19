@@ -23,7 +23,7 @@ stages:
           docker tag $(imagename) $(registry)/$(repository)
           # Pushing Image to Registry
           docker push $(registry)/$(repository)
-  - job: Deploying to K8s
+  - job: Deploying
     steps: 
       - bash: |
           kubectl apply -f configmap.yaml 
