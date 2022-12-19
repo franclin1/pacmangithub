@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pacman-ingress
+  namespace: malteahlers
+spec:
+  rules:
+    - host: malteahlers.skyered-devops.de
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: pacman-service
+                port:
+                  number: 80
+  ingressClassName: nginx
+

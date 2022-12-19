@@ -1,0 +1,21 @@
+version: "1"
+services:
+  mongodb:
+      image: mongo:5.0.14
+      ports: 
+        - 27017:27017
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports: 
+      - 8081:8081
+    depends_on:
+      - mongodb
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+  pacman_game:
+      image: harbor.skyered-devops.de/pacman/appfinal@sha256:22a56ca55a6ef9032268ba8443f14f5a3d38e5e263c918cd39c4ee6e21e4ca84
+      ports:
+        - 8080:8080
+      depends_on:
+      - mongo-express

@@ -1,0 +1,47 @@
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: malteahlers
+  name: pacman-service
+spec:
+  selector:
+    app: pacman-service
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: malteahlers
+  name: pacman-service
+spec:
+  selector:
+      matchLabels:
+        app: pacman-service
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pacman-service
+    spec:
+      containers:
+        - name: pacman-service
+          image: harbor.skyered-devops.de/pacman/appamd@sha256:49cc251905c2ac62214b1a78e63c9dd7fc2806e3afb857c5fc004589bfe5414f
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 8080
+          env:
+            - name: MONGO_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config  
+                  key: database
+            - name: MONGO_SERVICE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mongodb-config 
+                  key: database_url
+                  
