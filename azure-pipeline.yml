@@ -34,7 +34,8 @@ stages:
               mongodb.yaml
               deploynginx.yaml
               pacman.yaml
-      - task: Delay@1
+
+      - task: Delay@0
         inputs: 
           delayForSeconds: 20
 
