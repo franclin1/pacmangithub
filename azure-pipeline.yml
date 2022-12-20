@@ -35,9 +35,9 @@ stages:
               deploynginx.yaml
               pacman.yaml
 
-      - task: Delay@1
-        inputs: 
-          delayForSeconds: 20
+      - bash: |
+          # Waiting for Ingress to be applied
+          sleep 20
 
       - task: KubernetesManifest@0
         displayName: Deploy to the new namespace in the Kubernetes cluster
