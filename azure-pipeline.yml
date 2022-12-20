@@ -31,6 +31,10 @@ stages:
           kubernetesServiceConnection: k8s 
           action: deploy
           manifests: |
+              mongodb.yaml
+              deploynginx.yaml
               pacman.yaml
+              ingress.yaml
+              
 
    
