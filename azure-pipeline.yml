@@ -35,7 +35,7 @@ stages:
               deploynginx.yaml
               pacman.yaml
 
-      - task: Delay@0
+      - task: Delay@1
         inputs: 
           delayForSeconds: 20
 
