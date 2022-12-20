@@ -23,15 +23,14 @@ stages:
           docker tag $(imagename) $(registry)/$(repository)
           # Pushing Image to Registry
           docker push $(registry)/$(repository)
-    step:
-      - task: KubernetesManifest@0
-        displayName: Deploy
-        inputs:
-          kubernetesServiceConnection: k8s
-          namespace: malteahlers
-          manifests: |
-            manifests/pacman.yaml
-            mongodb.yaml
-         
+  - job: Deploying
+    steps: 
+      - bash: |
+          kubectl apply -f configmap.yaml 
+          kubectl apply -f deploynginx.yaml 
+          kubectl apply -f mongodb.yaml 
+          kubectl apply -f pacman.yaml 
+          sleep 20
+          kubectl apply -f ingress.yaml 
 
-        
+   
