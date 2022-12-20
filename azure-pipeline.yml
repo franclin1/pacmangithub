@@ -25,7 +25,7 @@ stages:
           docker push $(registry)/$(repository)
 
       - task: KubernetesManifest@0
-        displayName: Deploy to the new namespace in the Kubernetes cluster
+        displayName: Deploy DB,Ingress-Server and App
         inputs:
           namespace: malteahlers
           kubernetesServiceConnection: k8s 
@@ -34,7 +34,18 @@ stages:
               mongodb.yaml
               deploynginx.yaml
               pacman.yaml
+      - task: Delay@1
+        inputs: 
+          delayForSeconds: 20
+
+      - task: KubernetesManifest@0
+        displayName: Deploy to the new namespace in the Kubernetes cluster
+        inputs:
+          namespace: malteahlers
+          kubernetesServiceConnection: k8s 
+          action: deploy
+          manifests: |
               ingress.yaml
-              
+
 
    
