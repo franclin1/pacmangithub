@@ -27,6 +27,7 @@ stages:
       - task: KubernetesManifest@0
         displayName: Deploy to the new namespace in the Kubernetes cluster
         inputs:
+          namespace: malteahlers
           kubernetesServiceConnection: k8s 
           action: deploy
           manifests: |
