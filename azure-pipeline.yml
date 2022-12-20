@@ -27,16 +27,11 @@ stages:
       - task: KubernetesManifest@0
         displayName: Deploy
         inputs:
-          kubernetesServiceConnection: someK8sSC1
-          namespace: default
+          kubernetesServiceConnection: k8s
+          namespace: malteahlers
           manifests: |
-            manifests/deployment.yml
-            manifests/service.yml
-          containers: |
-            foo/demo:$(tagVariable1)
-            bar/demo:$(tagVariable2)
-          imagePullSecrets: |
-            some-secret
-            some-other-secret  
+            manifests/pacman.yaml
+            mongodb.yaml
+         
 
         
