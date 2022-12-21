@@ -1,1 +1,3 @@
 serviceaccount.yaml
+argocd.yaml
+argoingress.yaml

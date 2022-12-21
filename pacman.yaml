@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: pacman-service
-          image: harbor.skyered-devops.de/pacman/app:latest
+          image: harbor.skyered-devops.de/pacman/applicationjenkins:latest
           imagePullPolicy: Always
           ports:
           - containerPort: 8080
