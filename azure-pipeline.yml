@@ -9,9 +9,9 @@ resources:
 
 stages:
 - stage:
-  displayName: Build Image 
+  displayName: Build and push image 
   jobs:  
-  - job: Build
+  - job: Build and Push
     steps:
       - bash: |
           # Building Docker Image
