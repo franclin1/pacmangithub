@@ -9,7 +9,7 @@ resources:
 
 stages:
 - stage:
-  displayName: Build and push image 
+  displayName: Build_and_push_image 
   jobs:  
   - job: Build and Push
     steps:
