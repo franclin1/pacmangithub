@@ -30,7 +30,7 @@ stages:
           chmod a+x /usr/local/bin/yq
           yq --version
           cd k8smanifests
-          yq e '.images[0].newTag = "'$GITHUB_SHA'"' -i kustomization.yaml
+          yq e '.images[0].newTag = "'$(Build.BuildId)'"' -i kustomization.yaml
           git config --global user.name "${GITLAB_USER_NAME}"
           git config --global user.email "${GITLAB_USER_EMAIL}"
           git fetch 
