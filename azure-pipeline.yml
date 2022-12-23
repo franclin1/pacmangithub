@@ -1,7 +1,7 @@
 variables: 
 - group: Harbor_Creds
 - group: githubtoken
-- group: github_email
+- group: githubemail
 
 trigger:
 - main
