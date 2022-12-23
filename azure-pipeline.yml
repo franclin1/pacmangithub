@@ -16,13 +16,14 @@ stages:
       - bash: |
           # Building Docker Image
           echo $(repository)
+          echo $(Build.BuildId)
           docker build -t $(imagename) .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
           # Tagging Image
-          docker tag $(imagename):$GITHUB_SHA $(registry)/$(repository)
+          docker tag $(imagename) $(registry)/$(repository):$GITHUB_SHA
           # Pushing Image to Registry
-          docker push $(registry)/$(repository)
+          docker push $(registry)/$(repository):$GITHUB_SHA
 
       - bash: |
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
