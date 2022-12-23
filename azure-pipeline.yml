@@ -32,7 +32,7 @@ stages:
           yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
           echo | cat kustomization.yaml
           git add .
-          git commit "updated_image"
+          git commit -m "updated_image"
           git push 
 
      
