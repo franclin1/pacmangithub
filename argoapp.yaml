@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: myapp-argo-application
+  namespace: malteahlers
+spec:
+  project: default
+
+  source:
+    repoURL: https://gitlab.skyered-devops.de/trainee/pacman.git
+    targetRevision: HEAD
+    path: k8smanifests
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: malteahlers
+
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
+
+    automated: 
+      selfHeal: true
+      prune: true

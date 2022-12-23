@@ -24,29 +24,13 @@ stages:
           # Pushing Image to Registry
           docker push $(registry)/$(repository)
 
-      - task: KubernetesManifest@0
-        displayName: Deploy DB,Ingress-Server and App
-        inputs:
-          namespace: malteahlers
-          kubernetesServiceConnection: k8s 
-          action: deploy
-          manifests: |
-              mongodb.yaml
-              deploynginx.yaml
-              pacman.yaml
-
       - bash: |
-          # Waiting for Ingress to be applied
-          sleep 20
+          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          chmod a+x /usr/local/bin/yq
+          yq --version
+          yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
 
-      - task: KubernetesManifest@0
-        displayName: Deploy to the new namespace in the Kubernetes cluster
-        inputs:
-          namespace: malteahlers
-          kubernetesServiceConnection: k8s 
-          action: deploy
-          manifests: |
-              ingress.yaml
+     
 
 
    

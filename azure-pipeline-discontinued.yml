@@ -1,27 +1,52 @@
 variables: 
-  imageRepository: "pacman/app"
-  vmImageName: "ubuntu-latest"
-  containerRegistry: "harbor_registry"
-  dockerfilePath: "**/Dockerfile"
-  tag: '$(Build.BuildId)'
+- group: Harbor_Creds
 
 trigger:
 - main
 
+resources: 
+  - repo: self
+
 stages:
 - stage:
-  displayName: Build Image
+  displayName: Build and push image 
   jobs:  
-  - job: Build
-    displayName: Build job
-    pool:
-      vmImage: $(vmImageName)
+  - job: Build and Push
     steps:
-    - task: Docker@2
-      displayName: Build an Docker Image
-      inputs:
-        containerRegistry: '$(containerRegistry)'
-        repository: '$(imageRepository)'
-        command: 'buildAndPush'
-        Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+      - bash: |
+          # Building Docker Image
+          echo $(repository)
+          docker build -t $(imagename) .
+          # Logging into Registry
+           docker login --username $(username) --password $(password) $(registry)
+          # Tagging Image
+          docker tag $(imagename) $(registry)/$(repository)
+          # Pushing Image to Registry
+          docker push $(registry)/$(repository)
+
+      - task: KubernetesManifest@0
+        displayName: Deploy DB,Ingress-Server and App
+        inputs:
+          namespace: malteahlers
+          kubernetesServiceConnection: k8s 
+          action: deploy
+          manifests: |
+              mongodb.yaml
+              deploynginx.yaml
+              pacman.yaml
+
+      - bash: |
+          # Waiting for Ingress to be applied
+          sleep 20
+
+      - task: KubernetesManifest@0
+        displayName: Deploy to the new namespace in the Kubernetes cluster
+        inputs:
+          namespace: malteahlers
+          kubernetesServiceConnection: k8s 
+          action: deploy
+          manifests: |
+              ingress.yaml
+
+
+   

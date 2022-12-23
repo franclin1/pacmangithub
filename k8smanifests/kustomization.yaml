@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+ - pacman.yaml
+ - mongodb.yaml
+ - ingress.yaml
+ - configmap.yaml
+images:
+- name: harbor.skyered-devops.de/pacman/application
+  newTag: 2133ea16b7d658d8ffc638a2142442d2608fb816

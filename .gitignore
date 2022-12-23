@@ -1,3 +1,5 @@
 serviceaccount.yaml
 argocd.yaml
 argoingress.yaml
+deleteargo.sh
+deployargo.sh
