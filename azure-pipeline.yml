@@ -17,10 +17,6 @@ stages:
     steps:
       - bash: |
           # Building Docker Image
-          echo $(repository)
-          echo $(Build.BuildId)
-          echo $(github_email)
-          echo $(github_name)
           docker build -t $(imagename) .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
@@ -30,6 +26,7 @@ stages:
           docker push $(registry)/$(repository):$(Build.BuildId)
 
       - bash: |
+          # installing yq to update kustomization.yaml
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           chmod a+x /usr/local/bin/yq
           yq --version
