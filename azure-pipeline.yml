@@ -1,5 +1,8 @@
 variables: 
-- group: Harbor_Creds
+- group: 
+  - Harbor_Creds
+  - githubtoken
+  - github_email
 
 trigger:
 - main
@@ -17,8 +20,8 @@ stages:
           # Building Docker Image
           echo $(repository)
           echo $(Build.BuildId)
-          echo $(github_name)
           echo $(github_email)
+          echo $(github_name)
           docker build -t $(imagename) .
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
