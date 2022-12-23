@@ -40,6 +40,7 @@ stages:
           git config --global user.email "$(github_email)"
           git fetch 
           git checkout main
+          git commit --author="franclin1 <ahlers.malte95@gmail.com>"
           git add .
           git commit -m "updated_image"
           git push -o ci.skip https://franclin1:$GIT_PUSH_TOKEN@github.com/franclin1/pacmangithub
