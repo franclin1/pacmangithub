@@ -33,6 +33,7 @@ stages:
           yq e '.images[0].newTag = "'$GITHUB_SHA'"' -i kustomization.yaml
           git config --global user.name "${GITLAB_USER_NAME}"
           git config --global user.email "${GITLAB_USER_EMAIL}"
+          git fetch 
           git checkout main
           git add .
           git commit -m "updated_image"
