@@ -20,7 +20,7 @@ stages:
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
           # Tagging Image
-          docker tag $(imagename) $(registry)/$(repository)
+          docker tag $(imagename):$GITHUB_SHA $(registry)/$(repository)
           # Pushing Image to Registry
           docker push $(registry)/$(repository)
 
@@ -30,11 +30,12 @@ stages:
           yq --version
           cd k8smanifests
           yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
-          echo | cat kustomization.yaml
+          git config --global user.name "${GITLAB_USER_NAME}"
+          git config --global user.email "${GITLAB_USER_EMAIL}"
+          git checkout main
           git add .
           git commit -m "updated_image"
-          git push 
-
+          git push -o ci.skip https://franclin1:$GIT_PUSH_TOKEN@github.com/franclin1/pacmangithub
      
 
 
