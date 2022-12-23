@@ -1,8 +1,7 @@
 variables: 
-- group: 
-  - Harbor_Creds
-  - githubtoken
-  - github_email
+- group: Harbor_Creds
+- group: githubtoken
+- group: github_email
 
 trigger:
 - main
@@ -37,13 +36,10 @@ stages:
           cd k8smanifests
           yq -i '.images[0].newTag = "'$(Build.BuildId)'"' -i kustomization.yaml
           cd ..
-          git config --global user.name "franclin1"
-          git config --global user.email "ahlers.malte95@gmail.com"
           git config --global user.name "$(github_name)"
           git config --global user.email "$(github_email)"
           git fetch 
           git checkout main
-          git commit --author="franclin1 <ahlers.malte95@gmail.com>"
           git add .
           git commit -m "updated_image"
           git push -o ci.skip https://franclin1:$GIT_PUSH_TOKEN@github.com/franclin1/pacmangithub
