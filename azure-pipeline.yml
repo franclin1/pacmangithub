@@ -21,16 +21,16 @@ stages:
           # Logging into Registry
            docker login --username $(username) --password $(password) $(registry)
           # Tagging Image
-          docker tag $(imagename) $(registry)/$(repository):$GITHUB_SHA
+          docker tag $(imagename) $(registry)/$(repository):$(Build.BuildId)
           # Pushing Image to Registry
-          docker push $(registry)/$(repository):$GITHUB_SHA
+          docker push $(registry)/$(repository):$(Build.BuildId)
 
       - bash: |
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           chmod a+x /usr/local/bin/yq
           yq --version
           cd k8smanifests
-          yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
+          yq e '.images[0].newTag = "'$GITHUB_SHA'"' -i kustomization.yaml
           git config --global user.name "${GITLAB_USER_NAME}"
           git config --global user.email "${GITLAB_USER_EMAIL}"
           git checkout main
