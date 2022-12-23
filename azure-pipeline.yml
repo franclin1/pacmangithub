@@ -28,6 +28,7 @@ stages:
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           chmod a+x /usr/local/bin/yq
           yq --version
+          cd k8smanifests
           yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
 
      
