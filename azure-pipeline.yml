@@ -30,6 +30,10 @@ stages:
           yq --version
           cd k8smanifests
           yq e '.images[0].newTag = "MOIN"' -i kustomization.yaml
+          echo | cat kustomization.yaml
+          git add .
+          git commit "updated_image"
+          git push 
 
      
 
