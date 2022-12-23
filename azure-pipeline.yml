@@ -32,7 +32,7 @@ stages:
           chmod a+x /usr/local/bin/yq
           yq --version
           cd k8smanifests
-          yq e '.images[0].newTag = "'$(Build.BuildId)'"' -i kustomization.yaml
+          yq -i '.images[0].newTag = "'$(Build.BuildId)'"' -i kustomization.yaml
           git config --global user.name "$(GITHUB_USER_NAME)"
           git config --global user.email "$(GITHUB_USER_EMAIL)"
           git fetch 
