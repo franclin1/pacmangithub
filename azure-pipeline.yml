@@ -26,6 +26,7 @@ stages:
           docker push $(registry)/$(repository):$(Build.BuildId)
 
       - bash: |
+          condition: not(contains(variables['Build.SourceVersionMessage'], '[skip ci]'))
           # installing yq to update kustomization.yaml
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
           chmod a+x /usr/local/bin/yq
@@ -38,7 +39,7 @@ stages:
           git fetch 
           git checkout main
           git add .
-          git commit -m "updated_image"
+          git commit -m "[skip ci]"
           git push -o ci.skip https://franclin1:$GIT_PUSH_TOKEN@github.com/franclin1/pacmangithub
      
 
