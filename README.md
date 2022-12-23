@@ -47,4 +47,4 @@ Nun schreibe in Kubernetes  Deployment  Service und PersistentsVoloumeclaim File
 
 Erstelle nun ein Ingress File für die dns <deinname>.skyered-devops.de 
 
-Erweitere deine Pipline in Jenkins azure devops und GitlabCI mit dem stage „“deploy“ . Darin sollen alle Kubernetes files automatisch angewendet werden. 
+Erweitere deine Pipline in Jenkins azure devops und GitlabCI mit dem stage „“deploy“ . Darin sollen alle Kubernetes files automatisch angewendet werden. d
