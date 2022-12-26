@@ -25,6 +25,11 @@ stages:
           # Pushing Image to Registry
           docker push $(registry)/$(repository):$(Build.BuildId)
 
+- stage: 
+  displayName: Deploy_to_K8s
+  jobs:
+  - job: Changing_Kustomization
+    steps: 
       - bash: |
           # installing yq to update kustomization.yaml
           wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
