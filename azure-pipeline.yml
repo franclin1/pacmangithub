@@ -31,11 +31,6 @@ stages:
   - job: Changing_Kustomization
     steps: 
       - bash: |
-          # installing yq to update kustomization.yaml
-          apk update && apk add yq
-          yq --version
-          wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
-          chmod a+x /usr/local/bin/yq
           yq --version
           cd k8smanifests
           yq -i '.images[0].newTag = "'$(Build.BuildId)'"' -i kustomization.yaml
