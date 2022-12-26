@@ -7,4 +7,4 @@ resources:
   - configmap.yaml
 images:
   - name: harbor.skyered-devops.de/pacman/application
-    newTag: "132"
+    newTag: "133"
